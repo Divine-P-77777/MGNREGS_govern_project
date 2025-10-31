@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Nalbari",
+    "employmentRate": 72,
+    "fundsUtilized": 134,
+    "households": 54000
+  },
+  {
+    "name": "Patna",
+    "employmentRate": 68,
+    "fundsUtilized": 156,
+    "households": 61000
+  },
+  {
+    "name": "Jaipur",
+    "employmentRate": 75,
+    "fundsUtilized": 142,
+    "households": 58000
+  },
+  {
+    "name": "Pune",
+    "employmentRate": 70,
+    "fundsUtilized": 120,
+    "households": 50000
+  }
+]
