@@ -16,7 +16,7 @@ export default function Providers({
     children,
 }: {
     children: React.ReactNode;
-}): JSX.Element {
+}): React.JSX.Element {
     useEffect(() => {
         // Prevent multiple injections
         if (!document.querySelector("#google-translate-script")) {

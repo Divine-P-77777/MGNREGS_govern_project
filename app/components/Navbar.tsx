@@ -17,7 +17,8 @@ interface TranslationKeys {
   [key: string]: string;
 }
 
-export default function Navbar(): JSX.Element {
+export default function Navbar(): React.JSX.Element {
+
   const { language, changeLanguage, t } = useLanguage() as {
     language: LanguageOption;
     changeLanguage: (lang: LanguageOption) => void;
