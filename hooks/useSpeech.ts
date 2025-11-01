@@ -24,3 +24,4 @@ export const useSpeech = () => {
 
   return { speak, stop };
 };
+

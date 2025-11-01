@@ -1,52 +1,33 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const lat = searchParams.get("lat");
+  const lon = searchParams.get("lon");
+
+  if (!lat || !lon) {
+    return NextResponse.json({ error: "Missing coordinates" }, { status: 400 });
+  }
+
   try {
-    const url = new URL(req.url);
-    const lat = url.searchParams.get("lat");
-    const lon = url.searchParams.get("lon");
-
-    if (!lat || !lon) {
-      return NextResponse.json({ error: "Missing lat/lon" }, { status: 400 });
-    }
-
-    const API_KEY = process.env.OPENCAGE_API_KEY;
-    if (!API_KEY) {
-      throw new Error("Missing OpenCage API key");
-    }
-
-    // 🌍 Call OpenCage API
-    const geoUrl = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${API_KEY}&language=en&pretty=1`;
-    const res = await fetch(geoUrl);
-
-    if (!res.ok) throw new Error(`OpenCage request failed with ${res.status}`);
-
+    const key = process.env.OPENCAGE_API_KEY;
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${key}&countrycode=in`;
+    const res = await fetch(url);
     const data = await res.json();
-    const components = data.results?.[0]?.components;
 
     const district =
-      components?.state_district ||
-      components?.district ||
-      components?.county ||
-      components?.state ||
+      data?.results?.[0]?.components?.state_district ||
+      data?.results?.[0]?.components?.county ||
+      data?.results?.[0]?.components?.city ||
       null;
 
     if (!district) {
-      console.warn("⚠️ No district found for coordinates:", { lat, lon });
+      return NextResponse.json({ error: "District not found" }, { status: 404 });
     }
 
-    return NextResponse.json({
-      district,
-      lat,
-      lon,
-      source: "OpenCage",
-    });
+    return NextResponse.json({ district });
   } catch (err) {
     console.error("Reverse geocode error:", err);
-    return NextResponse.json({
-      district: null,
-      error: err instanceof Error ? err.message : String(err),
-    });
+    return NextResponse.json({ error: "Failed to fetch location" }, { status: 500 });
   }
 }
