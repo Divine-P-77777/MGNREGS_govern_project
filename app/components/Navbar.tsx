@@ -31,40 +31,18 @@ export default function Navbar(): React.JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+  if (!mounted) return <></>;
 
-if (!mounted) return <></>;
-
-
-  // 🧭 Updated navigation items
-  const navItems: { key: keyof TranslationKeys; path: string }[] = [
-    { key: "home", path: "/" },
-    { key: "insight", path: "/insights" },
-    { key: "compare", path: "/compare" },
-    { key: "about", path: "/about" },
-    { key: "contact", path: "/contact" },
-    { key: "install", path: "/install" },
-  ];
-
-  const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) =>
     changeLanguage(e.target.value as LanguageOption);
-  };
 
   const startGuide = () => {
     introJs()
       .setOptions({
         steps: [
           { intro: "👋 Welcome! Let’s explore this page together." },
-          {
-            element: document.querySelector("nav"),
-            intro: "This is the main navigation bar to explore Mitra.",
-          },
-          {
-            element: document.querySelector("main"),
-            intro: "Here you’ll find all key insights and visual data.",
-          },
-          {
-            intro: "🌐 You can switch languages anytime using this dropdown.",
-          },
+          { element: document.querySelector("nav"), intro: "This is Mitra’s main navigation bar." },
+          { element: document.querySelector("main"), intro: "Here you’ll find visual insights and comparisons." },
         ],
         showProgress: true,
         showBullets: false,
@@ -90,23 +68,25 @@ if (!mounted) return <></>;
         </div>
 
         {/* 💻 Desktop Navigation */}
+        {/* 💻 Desktop Navigation */}
         <div className="hidden md:flex gap-8 text-[#1a1a1a] font-medium">
-          {navItems.map(({ key, path }) => (
-            <motion.div
-              key={key}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Link
-                href={path}
-                className="relative group transition duration-300"
-              >
+          {[
+            { key: "home", path: "/" },
+            { key: "insight", path: "/insights" },
+            { key: "compare", path: "/compare" },
+            { key: "about", path: "/about" },
+            { key: "contact", path: "/contact" },
+            { key: "install", path: "/install" },
+          ].map(({ key, path }) => (
+            <motion.div key={key} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link href={path} className="relative group transition duration-300">
                 <span>{t[key]}</span>
                 <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#138808] transition-all duration-300 group-hover:w-full" />
               </Link>
             </motion.div>
           ))}
         </div>
+
 
         {/* 🎛 Actions */}
         <div className="flex items-center gap-3">
@@ -126,7 +106,7 @@ if (!mounted) return <></>;
             type="button"
             onClick={startGuide}
             aria-label="Page Guide"
-            className="p-2 rounded-full bg-white/50 hover:bg-white transition-transform duration-300 border border-gray-300 hover:scale-110"
+            className="p-2 rounded-full bg-white/50 hover:bg-white border border-gray-300 hover:scale-110 transition-transform duration-300"
           >
             <Info className="w-5 h-5 text-[#138808]" />
           </button>
@@ -144,25 +124,45 @@ if (!mounted) return <></>;
       </div>
 
       {/* 📱 Mobile Dropdown */}
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="md:hidden bg-white/90 text-[#1a1a1a] flex flex-col gap-2 px-6 py-4 border-t border-gray-300"
-        >
-          {navItems.map(({ key, path }) => (
-            <Link
-              key={key}
-              href={path}
-              className="py-2 border-b border-gray-200 hover:scale-105 transition duration-300"
-              onClick={() => setIsOpen(false)}
-            >
-              {t[key]}
-            </Link>
-          ))}
-        </motion.div>
-      )}
+      <div className="md:hidden">
+        {/* Always visible tabs */}
+        <div className="flex justify-around bg-white/90 text-[#1a1a1a] border-t border-gray-200 py-2">
+          <Link href="/insights" className="text-sm font-medium hover:text-[#138808] transition">
+            {t.insight}
+          </Link>
+          <Link href="/compare" className="text-sm font-medium hover:text-[#138808] transition">
+            {t.compare}
+          </Link>
+        </div>
+
+        {/* Expandable Menu */}
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="bg-white/90 text-[#1a1a1a] flex flex-col gap-2 px-6 py-4 border-t border-gray-300"
+          >
+            {[
+              { key: "home", path: "/" },
+              { key: "insight", path: "/insights" },
+              { key: "compare", path: "/compare" },
+              { key: "about", path: "/about" },
+              { key: "contact", path: "/contact" },
+              { key: "install", path: "/install" },
+            ].map(({ key, path }) => (
+              <Link
+                key={key}
+                href={path}
+                className="py-2 border-b border-gray-200 hover:scale-105 transition duration-300"
+                onClick={() => setIsOpen(false)}
+              >
+                {t[key]}
+              </Link>
+            ))}
+          </motion.div>
+        )}
+      </div>
     </motion.nav>
   );
 }

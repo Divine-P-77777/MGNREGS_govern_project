@@ -28,6 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* Providers must be a client component if it uses document/window/useEffect */}
         <Providers>{children}</Providers>
       </body>
     </html>

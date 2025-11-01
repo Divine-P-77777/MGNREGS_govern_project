@@ -89,7 +89,8 @@ const handleSpeak = () => {
   const langTag = langToSpeechTag[lang];
 
   try {
-    speakText(text, langTag);
+   speakText(text, lang);
+
   } catch {
     const u = new SpeechSynthesisUtterance(text);
     u.lang = langTag;

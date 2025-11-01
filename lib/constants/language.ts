@@ -239,3 +239,81 @@ export const languageFooter = {
     copyright: "© ২০২৫ মিত্ৰ. সকলো অধিকাৰ সংৰক্ষিত।",
   },
 };
+
+
+
+export const languageAbout = {
+  en: {
+    title: "About Mitra — Our Voice, Our Rights",
+    desc: "Mitra is an open platform that simplifies MGNREGA data for every citizen — bringing transparency, empowerment, and awareness to the people of Bharat.",
+    features: [
+      "Voice summaries in local languages",
+      "Easy comparison of district performance",
+      "Offline-ready with PWA support",
+      "Data transparency powered by Bharat’s citizens",
+    ],
+    explore: "Explore Insights →",
+    listen: "Listen",
+  },
+  hi: {
+    title: "मित्र के बारे में — हमारी आवाज़, हमारे अधिकार",
+    desc: "मित्र एक खुला मंच है जो हर नागरिक के लिए MGNREGA डेटा को सरल बनाता है — पारदर्शिता, सशक्तिकरण और जागरूकता लाता है।",
+    features: [
+      "स्थानीय भाषाओं में वॉयस सारांश",
+      "जिलों के प्रदर्शन की आसान तुलना",
+      "PWA समर्थन के साथ ऑफ़लाइन उपयोग",
+      "भारत के नागरिकों द्वारा संचालित पारदर्शिता",
+    ],
+    explore: "अंतर्दृष्टि देखें →",
+    listen: "सुनें",
+  },
+  as: {
+    title: "মিত্ৰ সম্পৰ্কে — আমাৰ স্বৰ, আমাৰ অধিকাৰ",
+    desc: "মিত্ৰ হৈছে এটা মুক্ত মঞ্চ যি প্ৰতিজন নাগৰিকৰ বাবে MGNREGA তথ্য সহজ কৰে — স্বচ্ছতা, শক্তিকৰণ আৰু সজাগতা আনে।",
+    features: [
+      "স্থানীয় ভাষাত ভয়েছ সামৰি",
+      "জিলা-প্ৰদৰ্শনৰ সহজ তুলনা",
+      "PWA সহ অফলাইন সহায়তা",
+      "ভাৰতবাসীৰ দ্বাৰা তথ্য স্বচ্ছতা",
+    ],
+    explore: "অন্তৰ্দৃষ্টি চাওক →",
+    listen: "শুনক",
+  },
+};
+
+export const languageContact = {
+  en: {
+    title: "Contact the Mitra Team",
+    desc: "We’d love to hear from you — whether it’s feedback, suggestions, or stories of how Mitra helped your community.",
+    namePlaceholder: "Full Name",
+    emailPlaceholder: "Email Address",
+    messagePlaceholder: "Your Message",
+    submit: "Send Message",
+    email: "support@mitra.gov.in",
+    address: "IIT Patna, India",
+    listen: "Listen",
+  },
+  hi: {
+    title: "मित्र टीम से संपर्क करें",
+    desc: "हम आपसे सुनना चाहेंगे — चाहे वह सुझाव हो, प्रतिक्रिया हो या आपकी कहानी कि कैसे मित्र ने मदद की।",
+    namePlaceholder: "पूरा नाम",
+    emailPlaceholder: "ईमेल पता",
+    messagePlaceholder: "आपका संदेश",
+    submit: "संदेश भेजें",
+    email: "support@mitra.gov.in",
+    address: "आईआईटी पटना, भारत",
+    listen: "सुनें",
+  },
+  as: {
+    title: "মিত্ৰ দলেৰ সৈতে যোগাযোগ কৰক",
+    desc: "আমাক আপোনাৰ মতামত, পৰামৰ্শ বা মিত্ৰে আপোনাক কেনেকৈ সহায় কৰিছে সেই কথা জনাবলৈ আমি আগ্ৰহী।",
+    namePlaceholder: "সম্পূৰ্ণ নাম",
+    emailPlaceholder: "ইমেইল ঠিকনা",
+    messagePlaceholder: "আপোনাৰ বাৰ্তা",
+    submit: "বাৰ্তা পঠিয়াওক",
+    email: "support@mitra.gov.in",
+    address: "আইআইটি পতনা, ভাৰত",
+    listen: "শুনক",
+  },
+};
+
