@@ -1,11 +1,16 @@
-export function speakText(text: string, lang: "en" | "hi" | "as", onStart?: () => void, onEnd?: () => void) {
+export function speakText(
+  text: string,
+  lang: "en" | "hi" | "as",
+  onStart?: () => void,
+  onEnd?: () => void
+) {
   if (typeof window === "undefined" || !("speechSynthesis" in window)) {
     console.warn("SpeechSynthesis not available");
     return;
   }
 
   window.speechSynthesis.cancel();
-  const utter = new SpeechSynthesisUtterance(text);
+  const utter = new window.SpeechSynthesisUtterance(text);
 
   const voiceLangs: Record<string, string> = {
     en: "en-IN",
@@ -24,7 +29,8 @@ export function speakText(text: string, lang: "en" | "hi" | "as", onStart?: () =
 }
 
 export function stopSpeech() {
-  if (typeof window !== "undefined" && "speechSynthesis" in window) {
-    window.speechSynthesis.cancel();
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+    return;
   }
+  window.speechSynthesis.cancel();
 }

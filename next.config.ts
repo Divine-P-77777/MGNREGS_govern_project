@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+const nextConfig = {
+  experimental: {
+    turbotrace: true,
+  },
+} as Partial<NextConfig>;
 
 export default nextConfig;

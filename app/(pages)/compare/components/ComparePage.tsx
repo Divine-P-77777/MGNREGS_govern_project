@@ -153,37 +153,38 @@ const summaryText = useMemo(() => {
 
 
 
-  /** 🗣️ Voice Summary */
 const handleSpeak = () => {
   if (!aData || !bData) return;
 
-  if (isSpeaking) {
-    window.speechSynthesis.cancel();
-    setIsSpeaking(false);
-    return;
+  // SSR-safe: window check
+  if (typeof window !== "undefined") {
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+      return;
+    }
+
+    const textA = voiceTemplatesCompare[language](aData);
+    const textB = voiceTemplatesCompare[language](bData);
+
+    const fullText =
+      language === "en"
+        ? `Comparison between ${aData.name} and ${bData.name}. ${textA} In contrast, ${textB}`
+        : `${aData.name} আৰু ${bData.name} জিলাৰ তুলনা। ${textA} আৰু ${textB}`;
+
+    speakText(fullText, language, () => setIsSpeaking(true), () => setIsSpeaking(false));
   }
-
-  // ✅ Build bilingual summary using current language
-  const textA = voiceTemplatesCompare[language](aData);
-  const textB = voiceTemplatesCompare[language](bData);
-
-  const fullText =
-    language === "en"
-      ? `Comparison between ${aData.name} and ${bData.name}. ${textA} In contrast, ${textB}`
-      : `${aData.name} আৰু ${bData.name} জিলাৰ তুলনা। ${textA} আৰু ${textB}`;
-
-  speakText(fullText, language, () => setIsSpeaking(true), () => setIsSpeaking(false));
 };
-  /** 📸 Snapshot download */
-  const handleDownload = async () => {
-    if (!containerRef.current) return;
+
+const handleDownload = async () => {
+  if (typeof document !== "undefined" && containerRef.current) {
     const canvas = await html2canvas(containerRef.current, { scale: 2 });
     const link = document.createElement("a");
     link.download = `Compare_${aData?.name}_vs_${bData?.name}.png`;
     link.href = canvas.toDataURL("image/png");
     link.click();
-  };
-
+  }
+};
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#e8f5e9] via-white to-[#fff3e0] py-24 px-5">
       <motion.div

@@ -80,8 +80,8 @@ const ContactPage: React.FC = () => {
       </form>
 
       <div className="mt-8 text-center text-gray-800">
-        <p>📧 {content.email}</p>
-        <p>📍 {content.address}</p>
+        <p> {content.email}</p>
+     
       </div>
 
       <button

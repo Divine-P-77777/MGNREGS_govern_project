@@ -19,8 +19,9 @@ export default function Dialog({
   children,
   width = "max-w-2xl",
 }: DialogProps) {
-  // ✅ Close on Escape key
+  //  SSR-safe: Guard document usage
   useEffect(() => {
+    if (typeof document === "undefined") return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };

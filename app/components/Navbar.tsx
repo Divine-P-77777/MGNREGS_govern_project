@@ -37,21 +37,23 @@ export default function Navbar(): React.JSX.Element {
     changeLanguage(e.target.value as LanguageOption);
 
   const startGuide = () => {
-    introJs()
-      .setOptions({
-        steps: [
-          { intro: "👋 Welcome! Let’s explore this page together." },
-          { element: document.querySelector("nav"), intro: "This is Mitra’s main navigation bar." },
-          { element: document.querySelector("main"), intro: "Here you’ll find visual insights and comparisons." },
-        ],
-        showProgress: true,
-        showBullets: false,
-        nextLabel: "Next →",
-        prevLabel: "← Back",
-        doneLabel: "Got it!",
-        overlayOpacity: 0.6,
-      })
-      .start();
+    if (typeof document !== "undefined") { 
+      introJs()
+        .setOptions({
+          steps: [
+            { intro: " Welcome! Let’s explore this page together." },
+            { element: document.querySelector("nav"), intro: "This is Mitra’s main navigation bar." },
+            { element: document.querySelector("main"), intro: "Here you’ll find visual insights and comparisons." },
+          ],
+          showProgress: true,
+          showBullets: false,
+          nextLabel: "Next →",
+          prevLabel: "← Back",
+          doneLabel: "Got it!",
+          overlayOpacity: 0.6,
+        })
+        .start();
+    }
   };
 
   return (

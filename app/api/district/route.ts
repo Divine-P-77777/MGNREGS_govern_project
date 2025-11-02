@@ -25,8 +25,7 @@ type DistrictShape = {
 
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 
-// Safely coerce the imported JSON to an array of DistrictShape.
-// This avoids TS errors when the JSON import type is not an array.
+
 const sampleArray: DistrictShape[] = Array.isArray(sampleData)
   ? (sampleData as unknown as DistrictShape[])
   : [];
@@ -76,7 +75,7 @@ async function fetchFromExternalAPI(name: string): Promise<DistrictShape | null>
       lastUpdated: new Date().toISOString(),
     };
   } catch (error) {
-    console.error("❌ Failed to fetch external API:", error);
+    console.error("Failed to fetch external API:", error);
     return null;
   }
 }
@@ -89,24 +88,24 @@ export async function GET(req: NextRequest) {
     const { db } = await connectToDatabase();
     const col = db.collection("districts");
 
-    // 🔍 Cache Check (case-insensitive)
+    // Cache Check (case-insensitive)
     const cached = await col.findOne({ name: { $regex: `^${name}$`, $options: "i" } });
     if (cached && cached.lastUpdated) {
       const last = new Date(cached.lastUpdated).getTime();
       if (Date.now() - last < CACHE_TTL_MS) {
-        console.log(`✅ Using cached data for ${name}`);
+        console.log(`Using cached data for ${name}`);
         return NextResponse.json(cached);
       }
     }
 
-    // 🌐 Fetch from API
+    // Fetch from API
     const external = await fetchFromExternalAPI(name);
     let finalData: DistrictShape;
 
     if (external) {
       finalData = external;
     } else {
-      console.warn(`⚠️ Falling back to sample data for ${name}`);
+      console.warn(`Falling back to sample data for ${name}`);
       const fallback = sampleArray.find((d) => d.name.toLowerCase() === name.toLowerCase());
       finalData =
         fallback ??
@@ -131,16 +130,15 @@ export async function GET(req: NextRequest) {
         } as DistrictShape);
     }
 
-    // 💾 Cache result (use case-insensitive filter to avoid duplicates with different casing)
     await col.updateOne(
       { name: { $regex: `^${name}$`, $options: "i" } },
       { $set: finalData },
       { upsert: true }
     );
-    console.log(`📦 Cached new data for ${name}`);
+    console.log(`Cached new data for ${name}`);
     return NextResponse.json(finalData);
   } catch (err) {
-    console.error("❌ district API error:", err);
+    console.error("district API error:", err);
     const fallback = sampleArray[0];
     return NextResponse.json({
       ...(fallback ?? { name: "unknown", state: "", year: "", month: "" }),

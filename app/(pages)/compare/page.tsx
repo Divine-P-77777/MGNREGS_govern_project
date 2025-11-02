@@ -6,7 +6,6 @@ export const metadata = {
 };
 
 export default function Page() {
-  // This is a Server Component (no "use client" at top).
-  // It can export metadata and still render the client component ComparePage.
+  
   return <ComparePage />;
 }

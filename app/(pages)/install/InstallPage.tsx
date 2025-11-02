@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import { Lang, languageInstall } from "@/lib/constants/language";
@@ -17,9 +17,8 @@ declare global {
 
 export default function InstallPage() {
   const { language } = useLanguage();
-
-const lang = (language || "en") as Lang;
-const t = languageInstall[lang];
+  const lang = (language || "en") as Lang;
+  const t = languageInstall[lang];
 
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [isInstalled, setIsInstalled] = useState(false);
@@ -28,16 +27,18 @@ const t = languageInstall[lang];
 
   // 🧭 Handle PWA install events
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as any);
-      window.deferredPWAEvent = e;
+      (window as any).deferredPWAEvent = e;
     };
 
     const handleAppInstalled = () => {
       setIsInstalled(true);
       setDeferredPrompt(null);
-      window.deferredPWAEvent = null;
+      (window as any).deferredPWAEvent = null;
     };
 
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
@@ -46,7 +47,7 @@ const t = languageInstall[lang];
     // Detect existing install (standalone mode)
     const standalone =
       window.matchMedia?.("(display-mode: standalone)").matches ||
-      (window.navigator as any).standalone;
+      ((window.navigator as any).standalone);
     if (standalone) setIsInstalled(true);
 
     return () => {
@@ -57,6 +58,7 @@ const t = languageInstall[lang];
 
   // 📱 Trigger install prompt
   const handleInstall = useCallback(async () => {
+    if (typeof window === "undefined") return;
     const evt = (window as any).deferredPWAEvent || deferredPrompt;
     if (!evt) {
       setShowInfo(true);
@@ -78,26 +80,27 @@ const t = languageInstall[lang];
     }
   }, [deferredPrompt]);
 
-//  Voice summary
-const handleSpeak = () => {
-  const text = `${t.title}. ${t.subtitle}. ${t.tip}`;
-  const langToSpeechTag: Record<Lang, string> = {
-    en: "en-IN",
-    hi: "hi-IN",
-    as: "as-IN",
+  // Voice summary
+  const handleSpeak = () => {
+    const text = `${t.title}. ${t.subtitle}. ${t.tip}`;
+    const langToSpeechTag: Record<Lang, string> = {
+      en: "en-IN",
+      hi: "hi-IN",
+      as: "as-IN",
+    };
+    const langTag = langToSpeechTag[lang];
+
+    if (typeof window !== "undefined") {
+      try {
+        speakText(text, lang);
+      } catch {
+        const u = new window.SpeechSynthesisUtterance(text);
+        u.lang = langTag;
+        u.rate = 0.95;
+        window.speechSynthesis.speak(u);
+      }
+    }
   };
-  const langTag = langToSpeechTag[lang];
-
-  try {
-   speakText(text, lang);
-
-  } catch {
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = langTag;
-    u.rate = 0.95;
-    window.speechSynthesis.speak(u);
-  }
-};
 
 
   return (

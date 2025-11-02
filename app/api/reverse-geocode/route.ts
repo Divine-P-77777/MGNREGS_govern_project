@@ -10,14 +10,12 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Missing coordinates (lat, lon)" }, { status: 400 });
   }
 
-  // Validate numeric coordinates
   const latNum = Number(lat);
   const lonNum = Number(lon);
   if (Number.isNaN(latNum) || Number.isNaN(lonNum)) {
     return NextResponse.json({ error: "Invalid coordinates" }, { status: 400 });
   }
 
-  // Runtime check for API key (avoid `!` non-null assertion)
   const API_KEY = process.env.OPENCAGE_API_KEY;
   if (!API_KEY) {
     console.warn("OPENCAGE_API_KEY is not set — skipping external fetch");
@@ -54,7 +52,6 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "District not found" }, { status: 404 });
     }
 
-    // Return district (optionally include other helpful fields)
     return NextResponse.json({
       district,
       state: components?.state ?? null,

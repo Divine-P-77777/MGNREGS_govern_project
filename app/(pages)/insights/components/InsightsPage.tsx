@@ -36,12 +36,13 @@ export default function InsightsPage() {
   const abortRef = useRef<AbortController | null>(null);
 
   /** 🔍 Debounced district suggestions */
-  useEffect(() => {
-    if (!query.trim()) {
-      setSuggestions([]);
-      return;
-    }
-    setLoadingSuggestions(true);
+useEffect(() => {
+  if (!query.trim()) {
+    setSuggestions([]);
+    return;
+  }
+  setLoadingSuggestions(true);
+  if (typeof window !== "undefined") { // <--- SSR-safe
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = window.setTimeout(async () => {
       try {
@@ -53,10 +54,14 @@ export default function InsightsPage() {
         setLoadingSuggestions(false);
       }
     }, 300);
-    return () => {
-      if (debounceRef.current) clearTimeout(debounceRef.current);
-    };
-  }, [query]);
+  }
+  return () => {
+    if (typeof window !== "undefined" && debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+  };
+}, [query]);
+
 
   /** 📦 Fetch summary */
   const fetchSummary = async (districtName: string) => {
@@ -110,8 +115,8 @@ export default function InsightsPage() {
   };
 
   /** 📍 Use My Location */
-  const handleUseLocation = async () => {
-    if (!navigator.geolocation) return alert("Geolocation not supported.");
+const handleUseLocation = async () => {
+  if (typeof navigator !== "undefined" && navigator.geolocation) { // <--- SSR-safe
     setLocating(true);
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
@@ -135,11 +140,14 @@ export default function InsightsPage() {
         setLocating(false);
       }
     );
-  };
-
-  /** 🎧 Voice summary */
-  const handleVoiceSummary = () => {
-    if (!summary) return;
+  } else {
+    alert("Geolocation not supported.");
+  }
+};
+  /** Voice summary */
+const handleVoiceSummary = () => {
+  if (!summary) return;
+  if (typeof window !== "undefined") { // <--- SSR-safe
     if (isSpeaking) {
       stop();
       setIsSpeaking(false);
@@ -148,9 +156,10 @@ export default function InsightsPage() {
     const template = voiceTemplates[lang];
     const text = template(summary);
     speak(text, lang, () => setIsSpeaking(true), () => setIsSpeaking(false));
-  };
+  }
+};
 
-  /** 📊 Chart Data Memo */
+  /**  Chart Data Memo */
   const chartData = useMemo(
     () =>
       summary

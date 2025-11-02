@@ -117,7 +117,7 @@ export default function BarChartModal({
           </p>
         </div>
 
-        {/* 🎧 Voice */}
+        {/*  Voice */}
         <div className="flex justify-center mb-5">
           <motion.button
             whileTap={{ scale: 0.97 }}
@@ -130,7 +130,7 @@ export default function BarChartModal({
           </motion.button>
         </div>
 
-        {/* 📈 Chart */}
+        {/* Chart */}
         <div className="h-80 bg-white rounded-xl shadow-inner p-4 border border-gray-100">
           {data.length ? (
             <ResponsiveContainer width="100%" height="100%">
@@ -181,7 +181,7 @@ export default function BarChartModal({
           )}
         </div>
 
-        {/* 📆 Trend */}
+        {/*  Trend */}
         <div className="mt-6 border-t pt-4 text-center text-gray-600 text-sm">
           <p className="max-w-lg mx-auto">
             📆 <strong>Yearly Trend (Coming Soon):</strong> Compare yearly MGNREGA performance and
@@ -189,7 +189,7 @@ export default function BarChartModal({
           </p>
         </div>
 
-        {/* ✅ Close CTA */}
+        {/* Close CTA */}
         <div className="text-center mt-6">
           <button
             onClick={onClose}

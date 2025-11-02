@@ -17,10 +17,11 @@ export const useSpeech = () => {
   };
 
   const stop = () => {
-    if (typeof window !== "undefined" && "speechSynthesis" in window) {
-      window.speechSynthesis.cancel();
-    }
-  };
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+    return;
+  }
+  window.speechSynthesis.cancel();
+};
 
   return { speak, stop };
 };

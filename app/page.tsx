@@ -1,8 +1,17 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { speakText, stopSpeech } from "@/lib/textToSpeech";
 import { useState } from "react";
+import { speakText, stopSpeech } from "@/lib/textToSpeech";
+import {
+  Headphones,
+  BarChart3,
+  HelpCircle,
+  BookOpenText,
+  Mail,
+  ArrowLeftRight,
+} from "lucide-react";
 
 export default function HomePage() {
   const router = useRouter();
@@ -20,13 +29,16 @@ export default function HomePage() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#FF9933]/20 via-white to-[#138808]/20 text-center px-6 py-10">
+    <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#FF9933]/20 via-white to-[#138808]/20 text-center px-6 py-28 relative overflow-hidden">
+      {/* Animated background glow */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#FF9933]/10 via-transparent to-[#138808]/10 animate-[gradientMove_10s_linear_infinite]"></div>
+
       {/* Hero Section */}
       <motion.h1
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-6xl md:text-7xl font-extrabold text-gray-900 mb-4"
+        className="text-6xl md:text-7xl mt-20 font-extrabold text-gray-900 mb-3 relative z-10"
       >
         Mitra
       </motion.h1>
@@ -35,7 +47,7 @@ export default function HomePage() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.8 }}
-        className="text-xl md:text-2xl font-semibold text-gray-700 mb-2"
+        className="text-xl md:text-2xl font-semibold text-indigo-800 mb-2 relative z-10"
       >
         🇮🇳 Our Voice, Our Rights
       </motion.h2>
@@ -44,35 +56,39 @@ export default function HomePage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 1 }}
-        className="max-w-2xl text-gray-600 text-lg md:text-xl leading-relaxed mb-10"
+        className="max-w-2xl text-gray-700 text-lg md:text-xl leading-relaxed mb-10 relative z-10"
       >
-        Empowering Bharat through <span className="font-semibold">data</span>,{" "}
-        <span className="font-semibold">voice</span>, and{" "}
-        <span className="font-semibold">transparency</span> — so every citizen can
-        understand, compare, and act.
+        Empowering Bharat through{" "}
+        <span className="font-semibold text-indigo-800">data</span>,{" "}
+        <span className="font-semibold text-indigo-800">voice</span>, and{" "}
+        <span className="font-semibold text-indigo-800">transparency</span> — so
+        every citizen can understand, compare, and act.
       </motion.p>
 
-      {/* Buttons */}
-      <div className="flex flex-wrap justify-center gap-4 mb-10">
+      {/* Buttons Section */}
+      <div className="flex flex-wrap justify-center gap-4 mb-10 relative z-10">
         <button
           onClick={handleVoiceIntro}
-          className="px-6 py-3 bg-[#FFD60A] rounded-full text-black font-medium shadow-md hover:scale-105 transition-all"
+          className="flex items-center gap-2 px-6 py-3 bg-[#FFD60A] rounded-full text-black font-medium shadow-md hover:scale-105 hover:shadow-lg transition-all"
         >
-          {isSpeaking ? "⏸ Pause Voice" : "🎧 Listen Intro"}
+          <Headphones size={20} />
+          {isSpeaking ? "Pause Voice" : "Listen Intro"}
         </button>
 
         <button
           onClick={() => router.push("/insights")}
-          className="px-6 py-3 bg-[#138808] text-white rounded-full font-medium shadow-md hover:scale-105 transition-all"
+          className="flex items-center gap-2 px-6 py-3 bg-[#138808] text-white rounded-full font-medium shadow-md hover:scale-105 hover:shadow-lg transition-all"
         >
-          📊 Explore Insights
+          <BarChart3 size={20} />
+          Explore Insights
         </button>
 
         <button
           onClick={() => router.push("/faq")}
-          className="px-6 py-3 bg-[#7e22ce] text-white rounded-full font-medium shadow-md hover:scale-105 transition-all"
+          className="flex items-center gap-2 px-6 py-3 bg-[#7e22ce] text-white rounded-full font-medium shadow-md hover:scale-105 hover:shadow-lg transition-all"
         >
-          ❓ FAQs
+          <HelpCircle size={20} />
+          FAQs
         </button>
       </div>
 
@@ -81,33 +97,37 @@ export default function HomePage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 0.8 }}
-        className="max-w-3xl text-center bg-white/20 backdrop-blur-md border border-gray-200 rounded-2xl shadow-md p-6"
+        className="max-w-3xl text-center bg-white/40 backdrop-blur-md border border-gray-200 rounded-2xl shadow-md p-6 relative z-10"
       >
-        <h3 className="text-2xl font-bold mb-3">Why Mitra?</h3>
-        <p className="text-gray-700 leading-relaxed mb-4">
+        <h3 className="text-2xl font-bold mb-3 text-indigo-900">Why Mitra?</h3>
+        <p className="text-gray-800 leading-relaxed mb-4">
           Mitra brings government data closer to citizens — visualized, summarized,
           and spoken in your language. Compare districts, listen to summaries, and
-          understand the impact of welfare programs like MGNREGA in real time.
+          understand the impact of welfare programs like{" "}
+          <span className="font-semibold">MGNREGA</span> in real time.
         </p>
 
         <div className="flex flex-wrap justify-center gap-3 mt-4">
           <button
             onClick={() => router.push("/about")}
-            className="px-5 py-2 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition-all"
+            className="flex items-center gap-2 px-5 py-2 bg-gray-900 text-white rounded-full hover:bg-gray-950 transition-all"
           >
-            📘 About Us
+            <BookOpenText size={18} />
+            About Us
           </button>
+
           <button
             onClick={() => router.push("/contact")}
-            className="px-5 py-2 bg-gray-800 text-white rounded-full hover:bg-gray-900 transition-all"
+            className="flex items-center gap-2 px-5 py-2 bg-gray-900 text-white rounded-full hover:bg-gray-950 transition-all"
           >
-            📬 Contact
+            <Mail size={18} />
+            Contact
           </button>
         </div>
       </motion.div>
 
       {/* Footer */}
-      <footer className="mt-12 text-sm text-gray-500">
+      <footer className="mt-12 text-sm text-gray-600 relative z-10">
         © {new Date().getFullYear()} Mitra — Built for Bharat 🇮🇳
       </footer>
     </main>

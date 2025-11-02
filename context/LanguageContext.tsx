@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   createContext,
@@ -8,15 +8,16 @@ import {
   ReactNode,
 } from "react";
 
-// 1️⃣ Define supported language types
 export type LanguageOption = "en" | "hi" | "as";
 
-// 2️⃣ Define translation key structure
 export interface TranslationKeys {
   home: string;
+  insight: string;
+  compare: string;
   about: string;
   contact: string;
   install: string;
+  guide: string;
   [key: string]: string;
 }
 
@@ -27,34 +28,41 @@ interface LanguageContextType {
   t: TranslationKeys;
 }
 
-// 4️⃣ Create translations object
+// Add ALL keys used in Navbar!
 const translations: Record<LanguageOption, TranslationKeys> = {
   en: {
     home: "Home",
+    insight: "Insights",
+    compare: "Compare",
     about: "About",
     contact: "Contact",
     install: "Install App",
+    guide: "Guide",
   },
   hi: {
     home: "होम",
+    insight: "इनसाइट्स",
+    compare: "तुलना करें",
     about: "हमारे बारे में",
     contact: "संपर्क करें",
     install: "ऐप इंस्टॉल करें",
+    guide: "मार्गदर्शिका",
   },
   as: {
     home: "ঘৰ",
+    insight: "পূৰ্বাভাস",
+    compare: "তুলনা কৰক",
     about: "আমাৰ বিষয়ে",
     contact: "যোগাযোগ",
     install: "এপ ইনষ্টল কৰক",
+    guide: "গাইড",
   },
 };
 
-// 5️⃣ Create the context with a default value (undefined initially)
 const LanguageContext = createContext<LanguageContextType | undefined>(
   undefined
 );
 
-// 6️⃣ Provider component
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<LanguageOption>("en");
 
@@ -83,7 +91,6 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// 7️⃣ Hook with error safety
 export const useLanguage = (): LanguageContextType => {
   const context = useContext(LanguageContext);
   if (!context) {
