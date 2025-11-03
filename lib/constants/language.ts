@@ -213,7 +213,16 @@ export const languageInstall: Record<
   },
 };
 
-export const languageFooter = {
+
+
+export const languageFooter: Record<Lang, {
+  home: string;
+  insights: string;
+  compare: string;
+  install: string;
+  about: string;
+  copyright: string;
+}> = {
   en: {
     home: "Home",
     insights: "Insights",
@@ -241,8 +250,16 @@ export const languageFooter = {
 };
 
 
-
-export const languageAbout = {
+export const languageAbout: Record<
+  Lang,
+  {
+    title: string;
+    desc: string;
+    features: string[];
+    explore: string;
+    listen: string;
+  }
+> = {
   en: {
     title: "About Mitra — Our Voice, Our Rights",
     desc: "Mitra is an open platform that simplifies MGNREGA data for every citizen — bringing transparency, empowerment, and awareness to the people of Bharat.",
@@ -255,6 +272,7 @@ export const languageAbout = {
     explore: "Explore Insights →",
     listen: "Listen",
   },
+
   hi: {
     title: "मित्र के बारे में — हमारी आवाज़, हमारे अधिकार",
     desc: "मित्र एक खुला मंच है जो हर नागरिक के लिए MGNREGA डेटा को सरल बनाता है — पारदर्शिता, सशक्तिकरण और जागरूकता लाता है।",
@@ -267,6 +285,7 @@ export const languageAbout = {
     explore: "अंतर्दृष्टि देखें →",
     listen: "सुनें",
   },
+
   as: {
     title: "মিত্ৰ সম্পৰ্কে — আমাৰ স্বৰ, আমাৰ অধিকাৰ",
     desc: "মিত্ৰ হৈছে এটা মুক্ত মঞ্চ যি প্ৰতিজন নাগৰিকৰ বাবে MGNREGA তথ্য সহজ কৰে — স্বচ্ছতা, শক্তিকৰণ আৰু সজাগতা আনে।",
@@ -281,7 +300,22 @@ export const languageAbout = {
   },
 };
 
-export const languageContact = {
+
+
+export const languageContact: Record<
+  Lang,
+  {
+    title: string;
+    desc: string;
+    namePlaceholder: string;
+    emailPlaceholder: string;
+    messagePlaceholder: string;
+    submit: string;
+    email: string;
+    address: string;
+    listen: string;
+  }
+> = {
   en: {
     title: "Contact the Mitra Team",
     desc: "We’d love to hear from you — whether it’s feedback, suggestions, or stories of how Mitra helped your community.",
@@ -293,6 +327,7 @@ export const languageContact = {
     address: "IIT Patna, India",
     listen: "Listen",
   },
+
   hi: {
     title: "मित्र टीम से संपर्क करें",
     desc: "हम आपसे सुनना चाहेंगे — चाहे वह सुझाव हो, प्रतिक्रिया हो या आपकी कहानी कि कैसे मित्र ने मदद की।",
@@ -304,6 +339,7 @@ export const languageContact = {
     address: "आईआईटी पटना, भारत",
     listen: "सुनें",
   },
+
   as: {
     title: "মিত্ৰ দলেৰ সৈতে যোগাযোগ কৰক",
     desc: "আমাক আপোনাৰ মতামত, পৰামৰ্শ বা মিত্ৰে আপোনাক কেনেকৈ সহায় কৰিছে সেই কথা জনাবলৈ আমি আগ্ৰহী।",
@@ -316,4 +352,3 @@ export const languageContact = {
     listen: "শুনক",
   },
 };
-

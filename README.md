@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧭 Mitra — Empowering Bharat through Data & Voice
 
-## Getting Started
+**Mitra** is a modern web application built to bring **transparency and accessibility** through **voice and data-driven insights**.  
+It leverages **Next.js (TypeScript)**, **Framer Motion**, **MongoDB**, **OpenCage API**, and **Web Speech API** — wrapped in a **PWA** for a seamless experience across all devices.
 
-First, run the development server:
+---
 
+## 🚀 Tech Stack
+
+| Layer | Technology |
+| :-- | :-- |
+| **Frontend** | [Next.js 16](https://nextjs.org/) (TypeScript) |
+| **Animations** | [Framer Motion](https://www.framer.com/motion/) |
+| **Database** | [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) |
+| **APIs** | [OpenCage](https://opencagedata.com/), [Data.gov](https://data.gov.in/), [LocationIQ](https://locationiq.com/) |
+| **Voice Engine** | Web Speech API |
+| **PWA** | Offline-first Progressive Web App |
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Divine-77777/mitra.git
+cd mitra
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 2️⃣ Install Dependencies
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+npm install
+```
 
-## Learn More
+3️⃣ Configure Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+Create two files in the project root:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+.env
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+MONGODB_URI=***************************
+DATA_GOV_API_KEY=***********************
+OPENCAGE_API_KEY=************************
+```
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+.env.local
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+NEXT_PUBLIC_LOCATIONIQ_API_KEY=*************
+```
+
+## 4️⃣ Run the Development Server
+
+```
+npm run dev
+```
+
+
+App runs at: 👉 http://localhost:3000
+
+
+
+
+## 5️⃣ Build for Production
+
+```
+npm run build
+npm start
+```
+
+
+
+## 📱 Key Features
+
+✅ Voice-based intro using Web Speech API
+
+✅ Smart district detection via OpenCage API
+
+✅ MongoDB caching for faster repeat lookups
+
+✅ Smooth interactive UI powered by Framer Motion
+
+✅ PWA support — offline-first experience
+
+✅ Data visualization with Recharts
+
+## 🧰 Development Notes
+
+Built with Next.js 16, React 19, TypeScript 5
+
+Uses Turbopack for ultra-fast builds
+
+Compatible with Node.js ≥ 20
+
+
+
+## 👨‍💻 Author
+
+Deepak Prasad
+
+## “Empowering Bharat through Data & Voice — one insight at a time.”
